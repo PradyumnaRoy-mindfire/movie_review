@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { Heart } from 'lucide-react';
+import FavouriteButton from './addToFavourite/FavouriteButton';
 
 const imageBaseUrl = import.meta.env.VITE_IMAGE_BASE_URL;
 const placeHolderImageUrl = import.meta.env.VITE_PLACEHOLDER_IMAGE_URL;
@@ -8,7 +7,6 @@ const MovieCard = ({ movie }) => {
   const posterUrl = movie.poster_path
     ? `${imageBaseUrl}w500${movie.poster_path}`
     : placeHolderImageUrl;
-  const [isFavourite, setIsFavourite] = useState(false);
 
   return (
     <div className="w-full sm:w-56 md:w-60 lg:w-64 bg-amber-100 rounded-xl shadow-lg shadow-amber-200 overflow-hidden hover:scale-105 transition-transform duration-300">
@@ -20,17 +18,7 @@ const MovieCard = ({ movie }) => {
         />
 
         <div className="absolute top-3 right-3">
-          <button
-            onClick={() => setIsFavourite(!isFavourite)}
-            className="bg-white p-2 rounded-full shadow-md"
-          >
-            <Heart
-              size={18}
-              className={`${
-                isFavourite ? 'fill-red-500 text-red-500' : 'text-gray-600'
-              }`}
-            />
-          </button>
+          <FavouriteButton movie={movie} />
         </div>
       </div>
 

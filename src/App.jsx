@@ -6,19 +6,22 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoadingEffect from './components/animations/LoadingEffect';
 import Layout from './components/Layout';
 import Home from './pages/Home';
+import { FavouriteProvider } from './context/FavouriteContext';
 
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <Suspense fallback={<LoadingEffect />}>
-          <Layout>
-            <Routes>
-              <Route path={ROUTES.HOME} element={<Home />} />
-            </Routes>
-          </Layout>
-        </Suspense>
-      </BrowserRouter>
+      <FavouriteProvider>
+        <BrowserRouter>
+          <Suspense fallback={<LoadingEffect />}>
+            <Layout>
+              <Routes>
+                <Route path={ROUTES.HOME} element={<Home />} />
+              </Routes>
+            </Layout>
+          </Suspense>
+        </BrowserRouter>
+      </FavouriteProvider>
     </>
   );
 }
