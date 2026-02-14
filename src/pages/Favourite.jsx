@@ -40,14 +40,22 @@ const Favourite = () => {
         prev.filter((movie) => movie.id !== draggedMovie.id)
       );
       setFavouriteMovies((prev) => [...prev, draggedMovie]);
-      localStorage.setItem('watchLaterMovies', JSON.stringify(watchLaterMovies.filter((movie) => movie.id !== draggedMovie.id)));
+      localStorage.setItem(
+        'watchLaterMovies',
+        JSON.stringify(
+          watchLaterMovies.filter((movie) => movie.id !== draggedMovie.id)
+        )
+      );
     } else {
       //destination is watchLater, movie comes from favourites too watchLater
       setFavouriteMovies((prev) =>
         prev.filter((movie) => movie.id !== draggedMovie.id)
       );
       setWatchLaterMovies((prev) => [...prev, draggedMovie]);
-      localStorage.setItem('watchLaterMovies', JSON.stringify([...watchLaterMovies, draggedMovie]) );
+      localStorage.setItem(
+        'watchLaterMovies',
+        JSON.stringify([...watchLaterMovies, draggedMovie])
+      );
     }
     setDraggedMovie(null);
     setSource(null);

@@ -2,7 +2,7 @@ import { Heart } from 'lucide-react';
 import { useContext } from 'react';
 import { FavouriteContext } from '../../context/FavouriteContext';
 
-const Favourite = ({ movie,size }) => {
+const Favourite = ({ movie, size }) => {
   size = size || 18;
   const { isFavourite, toggleFavourite } = useContext(FavouriteContext);
 
@@ -10,7 +10,9 @@ const Favourite = ({ movie,size }) => {
     <button
       onClick={() => toggleFavourite(movie)}
       className="bg-white p-2 rounded-full shadow-md cursor-pointer"
-      title={isFavourite(movie) ? 'Remove from favourites' : 'Add to favourites'}
+      title={
+        isFavourite(movie) ? 'Remove from favourites' : 'Add to favourites'
+      }
     >
       <Heart
         size={size}

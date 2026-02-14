@@ -7,7 +7,7 @@ import Layout from './components/Layout';
 import ROUTES from './constants/route';
 
 import Home from './pages/Home';
-import Favourite from './pages/Favourite'; 
+import Favourite from './pages/Favourite';
 
 function App() {
   return (
