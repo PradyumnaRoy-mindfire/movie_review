@@ -1,12 +1,13 @@
 import './App.css';
-import ROUTES from './constants/route';
 import { Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
+import { FavouriteProvider } from './context/FavouriteContext';
 import LoadingEffect from './components/animations/LoadingEffect';
 import Layout from './components/Layout';
+import ROUTES from './constants/route';
+
 import Home from './pages/Home';
-import { FavouriteProvider } from './context/FavouriteContext';
+import Favourite from './pages/Favourite'; 
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Layout>
               <Routes>
                 <Route path={ROUTES.HOME} element={<Home />} />
+                <Route path={ROUTES.FAVOURITE} element={<Favourite />} />
               </Routes>
             </Layout>
           </Suspense>

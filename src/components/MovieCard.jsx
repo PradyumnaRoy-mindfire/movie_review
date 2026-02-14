@@ -14,7 +14,7 @@ const MovieCard = ({ movie }) => {
         <img
           src={posterUrl}
           alt={movie.title}
-          className="w-full h-64 sm:h-72 md:h-80 object-cover"
+          className="w-full h-64 sm:h-72 md:h-80 object-cover rotate-x-15 -rotate-y-25 mt-5"
         />
 
         <div className="absolute top-3 right-3">
@@ -31,17 +31,3 @@ const MovieCard = ({ movie }) => {
 
 export default MovieCard;
 
-// adult: false;
-// backdrop_path: '/tyjXlexbNZQ0ZT1KEJslQtBirqc.jpg';
-// genre_ids: (3)[(12, 53, 878)];
-// id: 840464;
-// original_language: 'en';
-// original_title: 'Greenland 2: Migration';
-// overview: 'Having found the safety of the Greenland bunker after the comet Clarke decimated the Earth, the Garrity family must now risk everything to embark on a perilous journey across the wasteland of Europe to find a new home.';
-// popularity: 393.0964;
-// poster_path: '/z2tqCJLsw6uEJ8nJV8BsQXGa3dr.jpg';
-// release_date: '2026-01-07';
-// title: 'Greenland 2: Migration';
-// video: false;
-// vote_average: 6.554;
-// vote_count: 395;
