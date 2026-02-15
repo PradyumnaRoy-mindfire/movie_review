@@ -1,9 +1,11 @@
 import FavouriteButton from './addToFavourite/FavouriteButton';
+import MovieDetails from '../pages/MovieDetails';
 
 const imageBaseUrl = import.meta.env.VITE_IMAGE_BASE_URL;
 const placeHolderImageUrl = import.meta.env.VITE_PLACEHOLDER_IMAGE_URL;
 
 const MovieCard = ({ movie }) => {
+  <MovieDetails movie={movie} />;
   const posterUrl = movie.poster_path
     ? `${imageBaseUrl}w500${movie.poster_path}`
     : placeHolderImageUrl;
