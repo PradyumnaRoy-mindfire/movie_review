@@ -1,13 +1,14 @@
 import './App.css';
-import { Suspense } from 'react';
+import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { FavouriteProvider } from './context/FavouriteContext';
 import LoadingEffect from './components/animations/LoadingEffect';
 import Layout from './components/Layout';
 import ROUTES from './constants/route';
 
-import Home from './pages/Home';
-import Favourite from './pages/Favourite';
+const Home = lazy(() => import('./pages/Home'));
+const Favourite = lazy(() => import('./pages/Favourite'));
+const ErrorNotFound = lazy(() => import('./pages/ErrorNotFound'));
 
 function App() {
   return (
@@ -15,12 +16,13 @@ function App() {
       <FavouriteProvider>
         <BrowserRouter>
           <Suspense fallback={<LoadingEffect />}>
-            <Layout>
-              <Routes>
+            <Routes>
+              <Route element={<Layout />}>
                 <Route path={ROUTES.HOME} element={<Home />} />
                 <Route path={ROUTES.FAVOURITE} element={<Favourite />} />
-              </Routes>
-            </Layout>
+              </Route>
+              <Route path={ROUTES.NOTFOUND} element={<ErrorNotFound />} />
+            </Routes>
           </Suspense>
         </BrowserRouter>
       </FavouriteProvider>

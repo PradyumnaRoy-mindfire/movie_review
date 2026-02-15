@@ -15,7 +15,7 @@ const Navbar = () => {
             <input
               type="text"
               placeholder="Search"
-              className="w-[100px] sm:w-[150px] group-hover:w-[300px] transition-all duration-300 rounded-full border-2 border-gray-500 focus:outline-none focus:border-2 focus:border-orange-300 px-5 py-1 mr-3"
+              className="w-25 sm:w-37.5 group-hover:w-75 transition-all duration-300 rounded-full border-2 border-gray-500 focus:outline-none focus:border-2 focus:border-orange-300 px-5 py-1 mr-3"
             />
             <Search
               size={20}
