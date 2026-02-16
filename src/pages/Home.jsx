@@ -1,20 +1,18 @@
-import { useQuery } from '@tanstack/react-query';
-import { fetchMovies } from '../services/movieApiService';
-import LoadingEffect from '../components/animations/LoadingEffect';
 import MovieCard from '../components/MovieCard';
+import LoadingAndErrorHandler from '../components/LoadingAndErrorHandler';
+import { MoviesData } from '../utils/MoviesData';
 
 const Home = () => {
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ['movies'],
-    queryFn: fetchMovies,
-  });
+  const { data, isLoading, isError, error } = MoviesData();
 
-  if (isLoading) {
-    return <LoadingEffect />;
-  }
-
-  if (isError) {
-    return <div>Error: {error.message}</div>;
+  if (isLoading || isError) {
+    return (
+      <LoadingAndErrorHandler
+        isLoading={isLoading}
+        isError={isError}
+        error={error}
+      />
+    );
   }
 
   return (

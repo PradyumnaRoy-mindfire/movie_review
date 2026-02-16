@@ -6,7 +6,11 @@ const Navbar = () => {
     <>
       <div className="flex items-center justify-between p-4 bg-gradient-to-r from-orange-200 to-pink-200 shadow-md  text-gray-700">
         <div className="flex items-center">
-          <img src="/src/assets/movie_lo.png" alt="Logo" className="h-8 w-12" />
+          <img
+            src="/src/assets/movie_logo.png"
+            alt="Logo"
+            className="h-9 w-12"
+          />
           <h1 className="text-3xl font-bold ">PixelPoint</h1>
         </div>
 

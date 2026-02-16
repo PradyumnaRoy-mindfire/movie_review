@@ -8,7 +8,10 @@ const Favourite = ({ movie, size }) => {
 
   return (
     <button
-      onClick={() => toggleFavourite(movie)}
+      onClick={(e) => {
+        e.preventDefault();
+        toggleFavourite(movie);
+      }}
       className="bg-white p-2 rounded-full shadow-md cursor-pointer"
       title={
         isFavourite(movie) ? 'Remove from favourites' : 'Add to favourites'

@@ -3,7 +3,7 @@ const ROUTES = {
   FAVOURITE: '/favourite',
   CONTACT: '/contact',
   NOTFOUND: '*',
-  MOVIEDETAILS: 'movie:id',
+  MOVIEDETAILS: '/movie/:id/details',
 };
 
 export default ROUTES;
