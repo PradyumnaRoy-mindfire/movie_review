@@ -47,9 +47,9 @@ const Navbar = () => {
               className={({ isActive }) =>
                 `${isActive ? 'text-orange-400' : ''}`
               }
-              to="/contact"
+              to="/movies"
             >
-              Contact
+              Movies
             </NavLink>
           </div>
         </div>

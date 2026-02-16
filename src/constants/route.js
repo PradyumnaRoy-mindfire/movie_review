@@ -1,7 +1,7 @@
 const ROUTES = {
   HOME: '/',
   FAVOURITE: '/favourite',
-  CONTACT: '/contact',
+  MOVIES: '/movies',
   NOTFOUND: '*',
   MOVIEDETAILS: '/movie/:id/details',
 };

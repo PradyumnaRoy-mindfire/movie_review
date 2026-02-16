@@ -10,6 +10,7 @@ const Home = lazy(() => import('./pages/Home'));
 const Favourite = lazy(() => import('./pages/Favourite'));
 const ErrorNotFound = lazy(() => import('./pages/ErrorNotFound'));
 const MovieDetails = lazy(() => import('./pages/MovieDetails'));
+const Movies = lazy(() => import('./pages/Movies'));
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
               <Route element={<Layout />}>
                 <Route path={ROUTES.HOME} element={<Home />} />
                 <Route path={ROUTES.FAVOURITE} element={<Favourite />} />
+                <Route path={ROUTES.MOVIES} element={<Movies />} />
                 <Route path={ROUTES.MOVIEDETAILS} element={<MovieDetails />} />
               </Route>
               <Route path={ROUTES.NOTFOUND} element={<ErrorNotFound />} />

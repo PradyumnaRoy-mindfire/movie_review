@@ -68,7 +68,9 @@ export const fetchTopRatedMovies = async () => {
 };
 
 export const fetchUpcomingMovies = async () => {
-  const response = await api.get(`/movie/upcoming?api_key=${MOVIE_API_KEY}`);
+  const response = await api.get(
+    `/movie/upcoming?api_key=${MOVIE_API_KEY}&page=2`
+  );
   return response.data;
 };
 

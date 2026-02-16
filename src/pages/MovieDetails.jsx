@@ -149,7 +149,7 @@ const MovieDetails = () => {
                 <h2 className="text-xl mb-3 font-semibold text-gray-800">
                   Production Companies
                 </h2>
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-3 items-center">
                   {movie.production_companies.map((company) => (
                     <span
                       key={company.id}
@@ -162,7 +162,9 @@ const MovieDetails = () => {
                           className="w-16 h-16 object-contain"
                         />
                       ) : (
-                        company.name
+                        <span className="text-sm font-bold bg-amber-200 px-2 py-2 rounded text-gray-500 ">
+                          {company.name}
+                        </span>
                       )}
                     </span>
                   ))}
