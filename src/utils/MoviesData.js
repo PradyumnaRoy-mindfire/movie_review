@@ -1,7 +1,4 @@
-import {
-  fetchMovies,
-  fetchMovieDetails,
-} from '../services/movieApiService';
+import { fetchMovies, fetchMovieDetails } from '../services/movieApiService';
 import { useQuery } from '@tanstack/react-query';
 
 export const MoviesData = () => {
@@ -21,5 +18,3 @@ export const MovieDetailsData = (id) => {
 
   return { data, isLoading, isError, error };
 };
-
-
