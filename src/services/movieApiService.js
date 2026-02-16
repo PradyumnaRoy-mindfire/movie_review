@@ -10,8 +10,8 @@ const api = axios.create({
   },
 });
 
-export const fetchMovies = async () => {
-  const response = await api.get(`/movie/popular?api_key=${MOVIE_API_KEY}`);
+export const fetchMovies = async (page) => {
+  const response = await api.get(`/movie/popular?api_key=${MOVIE_API_KEY}&page=${page}`);
   return response.data;
 };
 
