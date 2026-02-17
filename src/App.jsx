@@ -3,8 +3,9 @@ import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { FavouriteProvider } from './context/FavouriteContext';
+import ErrorBoundary from './components/errorHandling/ErrorBoundary';
 import LoadingEffect from './components/animations/LoadingEffect';
-import Layout from './components/Layout';
+import Layout from './components/layout/Layout';
 import ROUTES from './constants/route';
 
 const Home = lazy(() => import('./pages/Home'));
@@ -32,16 +33,21 @@ function App() {
             }}
           />
           <Suspense fallback={<LoadingEffect />}>
-            <Routes>
-              <Route element={<Layout />}>
-                <Route path={ROUTES.HOME} element={<Home />} />
-                <Route path={ROUTES.FAVOURITE} element={<Favourite />} />
-                <Route path={ROUTES.MOVIES} element={<Movies />} />
-                <Route path={ROUTES.SEARCH} element={<SearchResults />} />
-                <Route path={ROUTES.MOVIEDETAILS} element={<MovieDetails />} />
-              </Route>
-              <Route path={ROUTES.NOTFOUND} element={<ErrorNotFound />} />
-            </Routes>
+            <ErrorBoundary>
+              <Routes>
+                <Route element={<Layout />}>
+                  <Route path={ROUTES.HOME} element={<Home />} />
+                  <Route path={ROUTES.FAVOURITE} element={<Favourite />} />
+                  <Route path={ROUTES.MOVIES} element={<Movies />} />
+                  <Route path={ROUTES.SEARCH} element={<SearchResults />} />
+                  <Route
+                    path={ROUTES.MOVIEDETAILS}
+                    element={<MovieDetails />}
+                  />
+                </Route>
+                <Route path={ROUTES.NOTFOUND} element={<ErrorNotFound />} />
+              </Routes>
+            </ErrorBoundary>
           </Suspense>
         </BrowserRouter>
       </FavouriteProvider>

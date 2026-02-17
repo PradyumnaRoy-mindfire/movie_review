@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { MovieDetailsData } from '../utils/MoviesData';
-import LoadingAndErrorHandler from '../components/LoadingAndErrorHandler';
+import LoadingAndErrorHandler from '../components/errorHandling/LoadingAndErrorHandler';
 import FavouriteButton from '../components/addToFavourite/FavouriteButton';
 import { Star, Clock, Calendar, DollarSign } from 'lucide-react';
 
@@ -22,7 +22,7 @@ const MovieDetails = () => {
     );
   }
 
-  if (movie === undefined) {
+  if (movie == null) {
     return <div className="text-3xl text-red-400">Movie not found.</div>;
   }
 
@@ -32,7 +32,7 @@ const MovieDetails = () => {
 
   const backdropUrl = movie.backdrop_path
     ? `${imageBaseUrl}w1280${movie.backdrop_path}`
-    : null;
+    : placeHolderImageUrl;
 
   const formatCurrency = (amount) => {
     if (!amount) {

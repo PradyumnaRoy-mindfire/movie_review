@@ -1,4 +1,5 @@
-import LoadingEffect from './animations/LoadingEffect';
+import LoadingEffect from '../animations/LoadingEffect';
+import ErrorMessage from './ErrorMessage';
 
 const LoadingAndErrorHandler = ({ isLoading, isError, error }) => {
   if (isLoading) {
@@ -6,7 +7,7 @@ const LoadingAndErrorHandler = ({ isLoading, isError, error }) => {
   }
 
   if (isError) {
-    return <div className="text-3xl text-red-400">Error: {error.message}</div>;
+    return <ErrorMessage message={error.message} />;
   }
 };
 

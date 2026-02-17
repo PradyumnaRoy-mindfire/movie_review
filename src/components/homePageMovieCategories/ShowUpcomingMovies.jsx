@@ -1,5 +1,5 @@
 import MovieCard from '../MovieCard';
-import LoadingAndErrorHandler from '../LoadingAndErrorHandler';
+import LoadingAndErrorHandler from '../errorHandling/LoadingAndErrorHandler';
 import { UpcomingMovies } from '../../utils/MoviesData';
 import { CalendarFold } from 'lucide-react';
 

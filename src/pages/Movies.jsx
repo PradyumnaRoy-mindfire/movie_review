@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import MovieCard from '../components/MovieCard';
-import LoadingAndErrorHandler from '../components/LoadingAndErrorHandler';
+import LoadingAndErrorHandler from '../components/errorHandling/LoadingAndErrorHandler';
 import { MoviesData } from '../utils/MoviesData';
 
 const Movies = () => {
@@ -35,6 +35,7 @@ const Movies = () => {
           <span className="mx-4 font-bold text-gray-700">{page}</span>
           <button
             className="px-4 py-1.5 bg-orange-500 text-white hover:bg-orange-600  transition-colors active:scale-90 rounded-lg cursor-pointer"
+            disabled={page == data.total_pages}
             onClick={() => setPage(page + 1)}
           >
             Next

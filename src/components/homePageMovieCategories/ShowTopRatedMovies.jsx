@@ -1,4 +1,4 @@
-import LoadingAndErrorHandler from '../LoadingAndErrorHandler';
+import LoadingAndErrorHandler from '../errorHandling/LoadingAndErrorHandler';
 import MovieCard from '../MovieCard';
 import { TopRatedMovies } from '../../utils/MoviesData';
 import { Star } from 'lucide-react';
