@@ -20,7 +20,7 @@ const MovieCard = ({ movie, badge = null }) => {
             className="w-full h-64 sm:h-72 md:h-80 object-cover rotate-x-15 -rotate-y-25 mt-5"
           />
 
-          <div className="absolute top-3 right-3">
+          <div className="absolute top-0 right-4">
             <FavouriteButton movie={movie} />
           </div>
         </div>

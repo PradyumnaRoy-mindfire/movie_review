@@ -27,13 +27,6 @@ export const fetchMovieDetails = async (movieId) => {
   return response.data;
 };
 
-export const fetchMovieVideos = async (movieId) => {
-  const response = await api.get(
-    `/movie/${movieId}/videos?api_key=${MOVIE_API_KEY}`
-  );
-  return response.data;
-};
-
 export const fetchMovieCredits = async (movieId) => {
   const response = await api.get(
     `/movie/${movieId}/credits?api_key=${MOVIE_API_KEY}`
