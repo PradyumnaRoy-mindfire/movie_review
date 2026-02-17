@@ -10,13 +10,20 @@ const MovieCard = ({ movie, badge = null }) => {
     : placeHolderImageUrl;
 
   return (
-    <div className="w-full sm:w-56 lg:w-64 md:w-60 bg-amber-100 rounded-xl shadow-lg shadow-amber-200 overflow-hidden hover:scale-105 transition-transform duration-300">
-      <Link to={`movie/${movie.id}/details`}>
+    <article
+      className="w-full sm:w-56 lg:w-64 md:w-60 bg-amber-100 rounded-xl shadow-lg shadow-amber-200 overflow-hidden hover:scale-105 transition-transform duration-300"
+      aria-label={`Movie is ${movie.title}`}
+    >
+      <Link
+        to={`movie/${movie.id}/details`}
+        aria-label={`View details of the ${movie.title}`}
+      >
         <div className="relative">
           {badge && badge()}
           <img
             src={posterUrl}
-            alt={movie.title}
+            alt={`Poster for ${movie.title}`}
+            loading="lazy"
             className="w-full h-64 sm:h-72 md:h-80 object-cover rotate-x-15 -rotate-y-25 mt-5"
           />
 
@@ -31,7 +38,7 @@ const MovieCard = ({ movie, badge = null }) => {
           </h2>
         </div>
       </Link>
-    </div>
+    </article>
   );
 };
 

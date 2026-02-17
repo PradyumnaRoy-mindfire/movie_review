@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { logApiError } from '../utils/errorLogger';
 
 const MOVIE_API_BASE_URL = import.meta.env.VITE_MOVIE_BASE_URL;
 const MOVIE_API_KEY = import.meta.env.VITE_MOVIE_API_KEY;
@@ -10,64 +11,47 @@ const api = axios.create({
   },
 });
 
+const apiRequest = async (endpoint) => {
+  try {
+    const response = await api.get(endpoint);
+    return response.data;
+  } catch (error) {
+    logApiError(error, endpoint);
+    throw error;
+  }
+};
+
 export const fetchMovies = async (page) => {
-  const response = await api.get(
-    `/movie/popular?api_key=${MOVIE_API_KEY}&page=${page}`
-  );
-  return response.data;
+  const endpoint = `/movie/popular?api_key=${MOVIE_API_KEY}&page=${page}`;
+  return apiRequest(endpoint);
 };
 
-export const fetchGenres = async () => {
-  const response = await api.get(`/genre/movie/list?api_key=${MOVIE_API_KEY}`);
-  return response.data;
-};
-
-export const fetchMovieDetails = async (movieId) => {
-  const response = await api.get(`/movie/${movieId}?api_key=${MOVIE_API_KEY}`);
-  return response.data;
-};
-
-export const fetchMovieCredits = async (movieId) => {
-  const response = await api.get(
-    `/movie/${movieId}/credits?api_key=${MOVIE_API_KEY}`
-  );
-  return response.data;
-};
+export async function fetchMovieDetails(movieId) {
+  const endpoint = `/movie/${movieId}?api_key=${MOVIE_API_KEY}`;
+  return apiRequest(endpoint);
+}
 
 export const searchMovies = async (query) => {
-  const response = await api.get(
-    `/search/movie?api_key=${MOVIE_API_KEY}&query=${encodeURIComponent(query)}`
-  );
-  return response.data;
-};
-
-export const fetchMoviesByGenre = async (genreId) => {
-  const response = await api.get(
-    `/discover/movie?api_key=${MOVIE_API_KEY}&with_genres=${genreId}`
-  );
-  return response.data;
+  const endpoint = `/search/movie?api_key=${MOVIE_API_KEY}&query=${encodeURIComponent(query)}`;
+  return apiRequest(endpoint);
 };
 
 export const fetchTrendingMovies = async () => {
-  const response = await api.get(
-    `/trending/movie/week?api_key=${MOVIE_API_KEY}`
-  );
-  return response.data;
+  const endpoint = `/trending/movie/week?api_key=${MOVIE_API_KEY}`;
+  return apiRequest(endpoint);
 };
 
 export const fetchTopRatedMovies = async () => {
-  const response = await api.get(`/movie/top_rated?api_key=${MOVIE_API_KEY}`);
-  return response.data;
+  const endpoint = `/movie/top_rated?api_key=${MOVIE_API_KEY}`;
+  return apiRequest(endpoint);
 };
 
-export const fetchUpcomingMovies = async () => {
-  const response = await api.get(
-    `/movie/upcoming?api_key=${MOVIE_API_KEY}&page=2`
-  );
-  return response.data;
-};
+export async function fetchUpcomingMovies() {
+  const endpoint = `/movie/upcoming?api_key=${MOVIE_API_KEY}`;
+  return apiRequest(endpoint);
+}
 
-export const fetchNowPlayingMovies = async () => {
-  const response = await api.get(`/movie/now_playing?api_key=${MOVIE_API_KEY}`);
-  return response.data;
-};
+export async function fetchNowPlayingMovies() {
+  const endpoint = `/movie/now_playing?api_key=${MOVIE_API_KEY}`;
+  return apiRequest(endpoint);
+}
