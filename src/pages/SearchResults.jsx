@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
 import MovieCard from '../components/MovieCard';
-import LoadingAndErrorHandler from '../components/LoadingAndErrorHandler';
+import LoadingAndErrorHandler from '../components/errorHandling/LoadingAndErrorHandler';
 import { SearchMovie } from '../utils/MoviesData';
 
 const SearchResults = () => {

@@ -1,4 +1,4 @@
-import LoadingAndErrorHandler from '../LoadingAndErrorHandler';
+import LoadingAndErrorHandler from '../errorHandling/LoadingAndErrorHandler';
 import MovieCard from '../MovieCard';
 import { NowPlayingMovies } from '../../utils/MoviesData';
 import { Clapperboard } from 'lucide-react';

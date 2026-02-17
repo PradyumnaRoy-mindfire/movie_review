@@ -1,0 +1,6 @@
+services:
+  react-app:
+    build: .
+    container_name: movie_review
+    ports:
+      - '5173:80'

@@ -1,5 +1,5 @@
 import MovieCard from '../MovieCard';
-import LoadingAndErrorHandler from '../LoadingAndErrorHandler';
+import LoadingAndErrorHandler from '../errorHandling/LoadingAndErrorHandler';
 import { TrendingMovies } from '../../utils/MoviesData';
 import { ChartNoAxesCombined } from 'lucide-react';
 
