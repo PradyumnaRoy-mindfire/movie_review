@@ -1,4 +1,8 @@
 import { createContext, useState } from 'react';
+import {
+  showAddToFavouritesToast,
+  showRemoveFromFavouritesToast,
+} from '../utils/toastNotifications';
 
 export const FavouriteContext = createContext();
 
@@ -25,8 +29,10 @@ export const FavouriteProvider = ({ children }) => {
 
     if (isAlreadyFavourite) {
       updatedFavourites = favourites.filter((fav) => fav.id !== movie.id);
+      showRemoveFromFavouritesToast(movie);
     } else {
       updatedFavourites = [...favourites, movie];
+      showAddToFavouritesToast(movie);
     }
 
     setFavourites(updatedFavourites);
