@@ -27,7 +27,7 @@ const ShowPlayingMovies = () => {
 
   return (
     <>
-      <h1 className="col-span-full text-2xl font-bold pt-8 pl-6 underline underline-offset-5 text-gray-500">
+      <h1 className="col-span-full text-base sm:text-lg md:text-xl lg:text-2xl xl:text-2xl  font-bold pt-8 pl-6 underline underline-offset-5 text-gray-500">
         <Clapperboard
           className="inline-block mr-2 text-pink-500 animate-pulse"
           size={32}

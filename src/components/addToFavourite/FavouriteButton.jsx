@@ -16,9 +16,11 @@ const Favourite = ({ movie, size }) => {
       title={
         isFavourite(movie) ? 'Remove from favourites' : 'Add to favourites'
       }
+      aria-label="Toggle favourite status"
     >
       <Heart
         size={size}
+        aria-hidden="true"
         className={`${
           isFavourite(movie) ? 'fill-red-500 text-red-500' : 'text-gray-600'
         }`}

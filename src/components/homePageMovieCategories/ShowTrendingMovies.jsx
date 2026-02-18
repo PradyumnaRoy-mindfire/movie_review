@@ -24,7 +24,7 @@ const ShowTrendingMovies = () => {
   };
   return (
     <>
-      <h1 className="text-2xl font-bold pt-8 pl-6 underline underline-offset-5 text-gray-500 col-span-full">
+      <h1 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-2xl font-bold pt-8 pl-6 underline underline-offset-5 text-gray-500 col-span-full">
         <ChartNoAxesCombined
           className="inline-block mr-2  text-orange-400 animate-pulse font-bold"
           size={32}
