@@ -14,6 +14,7 @@ const ErrorNotFound = lazy(() => import('./pages/ErrorNotFound'));
 const MovieDetails = lazy(() => import('./pages/MovieDetails'));
 const Movies = lazy(() => import('./pages/Movies'));
 const SearchResults = lazy(() => import('./pages/SearchResults'));
+const AboutUs = lazy(() => import('./pages/AboutUs'));
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
                     path={ROUTES.MOVIEDETAILS}
                     element={<MovieDetails />}
                   />
+                  <Route path={ROUTES.ABOUTUS} element={<AboutUs />} />
                 </Route>
                 <Route path={ROUTES.NOTFOUND} element={<ErrorNotFound />} />
               </Routes>

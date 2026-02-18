@@ -17,7 +17,7 @@ const MovieCard = memo(function MovieCard({ movie, badge = null }) {
       aria-label={`Movie is ${movie.title}`}
     >
       <Link
-        to={`movie/${movie.id}/details`}
+        to={`/movie/${movie.id}/details`}
         aria-label={`View details of the ${movie.title}`}
       >
         <div className="relative">

@@ -20,13 +20,13 @@ const Movies = () => {
   return (
     <section
       aria-label="Popular movies"
-      className="bg-linear-to-br from-blue-150 via-indigo-50 to-purple-50 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 px-8 pt-8"
+      className="bg-linear-to-br from-blue-150 via-indigo-50 to-purple-50 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm-gap-3 md:gap-4 lg:gap-6 xl:gap-6  px-2 md:px-4 lg:px-8 pt-8"
     >
       {data?.results?.map((movie) => (
         <MovieCard key={movie.id} movie={movie} />
       ))}
 
-      <nav
+      <div
         className="mt-8 flex justify-center items-center col-span-full mb-5"
         aria-label="Pagination"
       >
@@ -47,7 +47,7 @@ const Movies = () => {
         >
           Next
         </button>
-      </nav>
+      </div>
     </section>
   );
 };
