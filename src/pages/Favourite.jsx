@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect, useCallback } from 'react';
 import { FavouriteContext } from '../context/FavouriteContext';
 import DropZone from '../components/addToFavourite/DropZone';
 import { Grip, AlarmClock, HeartPlus } from 'lucide-react';
@@ -21,10 +21,10 @@ const Favourite = () => {
     setFavouriteMovies(filteredFavourites);
   }, [favourites, watchLaterMovies]);
 
-  const handleDragStart = (movie, source) => {
+  const handleDragStart = useCallback((movie, source) => {
     setDraggedMovie(movie);
     setSource(source);
-  };
+  }, []);
 
   //when the movie will be drop to any section
   const handleDrop = (destination) => (e) => {
@@ -61,17 +61,15 @@ const Favourite = () => {
     setSource(null);
   };
 
-  //when the movie is droped the event ended
-  const handleDragEnd = () => {
+  const handleDragEnd = useCallback(() => {
     setDraggedMovie(null);
     setSource(null);
-  };
+  }, []);
 
-  //whent the user is stop dragging the movie
-  const handleDragOver = (e) => {
+  const handleDragOver = useCallback((e) => {
     e.preventDefault();
     e.dataTransfer.dropEffect = 'move';
-  };
+  }, []);
 
   return (
     <>

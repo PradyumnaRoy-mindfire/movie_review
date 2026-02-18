@@ -1,10 +1,12 @@
+import { memo } from 'react';
 import FavouriteButton from './addToFavourite/FavouriteButton';
 import { Link } from 'react-router-dom';
 
 const imageBaseUrl = import.meta.env.VITE_IMAGE_BASE_URL;
 const placeHolderImageUrl = import.meta.env.VITE_PLACEHOLDER_IMAGE_URL;
 
-const MovieCard = ({ movie, badge = null }) => {
+// the movie prop doesnot change all time, badge is only sent from the home page movies, thats why memo is used
+const MovieCard = memo(function MovieCard({ movie, badge = null }) {
   const posterUrl = movie.poster_path
     ? `${imageBaseUrl}w500${movie.poster_path}`
     : placeHolderImageUrl;
@@ -40,6 +42,6 @@ const MovieCard = ({ movie, badge = null }) => {
       </Link>
     </article>
   );
-};
+});
 
 export default MovieCard;
