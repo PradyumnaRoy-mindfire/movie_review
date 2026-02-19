@@ -19,7 +19,7 @@ const Navbar = () => {
   };
 
   const navLinkClass = ({ isActive }) =>
-    `block py-2 md:py-0 ${isActive ? 'text-orange-500' : 'hover:text-orange-400'} transition-colors`;
+    `block py-2 md:py-0 lg:py-0 ${isActive ? 'text-orange-500' : 'hover:text-orange-400'} transition-colors`;
 
   return (
     <nav
@@ -80,6 +80,13 @@ const Navbar = () => {
             >
               Movies
             </NavLink>
+            <NavLink
+              className={navLinkClass}
+              to="/about-us"
+              aria-label="Go to about us page"
+            >
+              About Us
+            </NavLink>
           </div>
         </div>
 
@@ -87,8 +94,6 @@ const Navbar = () => {
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           className="md:hidden p-2 rounded-lg hover:bg-orange-300 transition-colors"
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={isMenuOpen}
-          aria-controls="mobile-menu"
         >
           {isMenuOpen ? (
             <X size={24} aria-hidden="true" />
@@ -105,9 +110,6 @@ const Navbar = () => {
           role="menu"
         >
           <div className="relative my-3" role="search">
-            <label htmlFor="mobile-search" className="sr-only">
-              Search movies
-            </label>
             <input
               id="mobile-search"
               type="text"
@@ -150,6 +152,14 @@ const Navbar = () => {
               role="navlink"
             >
               Movies
+            </NavLink>
+            <NavLink
+              className={navLinkClass}
+              to="/about-us"
+              onClick={() => setIsMenuOpen(false)}
+              role="navlink"
+            >
+              About Us
             </NavLink>
           </div>
         </div>

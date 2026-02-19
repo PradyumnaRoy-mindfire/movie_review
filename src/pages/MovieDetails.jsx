@@ -46,7 +46,7 @@ const MovieDetails = () => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+    <div className="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 min-h-screen relative pb-16">
       {backdropUrl && (
         <div className="relative h-64 md:h-80 lg:h-90 w-full overflow-hidden">
           <img
@@ -174,6 +174,14 @@ const MovieDetails = () => {
           </div>
         </div>
       </div>
+
+      <button
+        className="px-4 py-2 bg-gray-400 text-white rounded hover:bg-gray-500 transition-colors fixed bottom-8 sm:bottom-10 lg:bottom-14 right-4"
+        onClick={() => window.history.back()}
+        aria-label="Go back to previous page"
+      >
+        Back
+      </button>
     </div>
   );
 };
