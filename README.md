@@ -8,7 +8,7 @@ A simple movie browsing website where you can explore movies, add them to favour
 - Search for any movie by name
 - Add movies to your favourites list
 - Drag and drop movies from favourites to watch later section
-- View detailed information about each movie (cast, ratings, trailers)
+- View detailed information about each movie (cast, ratings, budget,collections)
 
 ## Tech Stack
 

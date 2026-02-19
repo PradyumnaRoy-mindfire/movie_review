@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import MovieCard from '../components/MovieCard';
 import LoadingAndErrorHandler from '../components/errorHandling/LoadingAndErrorHandler';
 import { MoviesData } from '../utils/MoviesData';
 
 const Movies = () => {
-  const [page, setPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  let page = searchParams.get('page') || 1;
+  page = parseInt(page);
+
   let { data, isLoading, isError, error } = MoviesData(page);
 
   if (isLoading || isError) {
@@ -16,6 +19,14 @@ const Movies = () => {
       />
     );
   }
+
+  const goToNextPage = () => {
+    setSearchParams({ page: page + 1 });
+  };
+
+  const goToPrevPage = () => {
+    setSearchParams({ page: page - 1 });
+  };
 
   return (
     <section
@@ -33,7 +44,7 @@ const Movies = () => {
         <button
           className={`px-4 py-1.5 bg-orange-500 text-white hover:bg-orange-600 transition-colors rounded-lg active:scale-90 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-orange-400`}
           disabled={page == 1}
-          onClick={() => setPage(page - 1)}
+          onClick={goToPrevPage}
           aria-label="Go to previous page"
         >
           Prev
@@ -42,7 +53,7 @@ const Movies = () => {
         <button
           className="px-4 py-1.5 bg-orange-500 text-white hover:bg-orange-600 transition-colors active:scale-90 rounded-lg cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-orange-400"
           disabled={page == data.total_pages}
-          onClick={() => setPage(page + 1)}
+          onClick={goToNextPage}
           aria-label="Go to next page"
         >
           Next
