@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Search, Menu, X } from 'lucide-react';
+import movieLogo from '../../assets/movie_logo.png';
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -30,8 +31,8 @@ const Navbar = () => {
       <div className="flex items-center justify-between p-4">
         <div className="flex items-center">
           <img
-            src="/src/assets/movie_logo.png"
-            alt="Logp"
+            src={movieLogo}
+            alt="Movie logo"
             className="h-9 w-12"
           />
           <h1 className="text-xl md:text-2xl lg:text-3xl font-bold">
