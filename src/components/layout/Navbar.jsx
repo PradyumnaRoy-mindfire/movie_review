@@ -30,11 +30,7 @@ const Navbar = () => {
     >
       <div className="flex items-center justify-between p-4">
         <div className="flex items-center">
-          <img
-            src={movieLogo}
-            alt="Movie logo"
-            className="h-9 w-12"
-          />
+          <img src={movieLogo} alt="Movie logo" className="h-9 w-12" />
           <h1 className="text-xl md:text-2xl lg:text-3xl font-bold">
             PixelPoint
           </h1>
