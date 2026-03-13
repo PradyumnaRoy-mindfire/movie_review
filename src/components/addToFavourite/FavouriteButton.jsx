@@ -2,7 +2,7 @@ import { Heart } from 'lucide-react';
 import { useContext } from 'react';
 import { FavouriteContext } from '../../context/FavouriteContext';
 
-const Favourite = ({ movie, size }) => {
+const FavouriteButton = ({ movie, size }) => {
   size = size || 18;
   const { isFavourite, toggleFavourite } = useContext(FavouriteContext);
 
@@ -29,4 +29,4 @@ const Favourite = ({ movie, size }) => {
   );
 };
 
-export default Favourite;
+export default FavouriteButton;
