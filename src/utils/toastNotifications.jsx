@@ -10,6 +10,18 @@ const DissmissButton = ({ toastId }) => (
   </button>
 );
 
+export const showEmptySearchQueryToast = () => {
+  return toast.error(
+    (t) => (
+      <span className="flex items-center gap-2">
+        <span className="font-bold">Please enter a movie name!!</span>
+        <DissmissButton toastId={t.id} />
+      </span>
+    ),
+    { duration: 3000 }
+  );
+};
+
 export const showAddToFavouritesToast = (movie) => {
   return toast.success(
     (t) => (

@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useMovieDetailsData } from '../utils/MoviesData';
 import LoadingAndErrorHandler from '../components/errorHandling/LoadingAndErrorHandler';
 import FavouriteButton from '../components/addToFavourite/FavouriteButton';
@@ -20,6 +20,7 @@ const formatCurrency = (amount) => {
 
 const MovieDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const { data: movie, isLoading, isError, error } = useMovieDetailsData(id);
 
@@ -177,7 +178,7 @@ const MovieDetails = () => {
 
       <button
         className="px-4 py-2 bg-gray-400 text-white rounded hover:bg-gray-500 transition-colors fixed bottom-8 sm:bottom-10 lg:bottom-14 right-4"
-        onClick={() => window.history.back()}
+        onClick={() => navigate(-1)}
         aria-label="Go back to previous page"
       >
         Back

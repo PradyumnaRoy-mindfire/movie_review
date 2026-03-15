@@ -2,6 +2,7 @@ import { memo } from 'react';
 import { Grip, Calendar, Star } from 'lucide-react';
 import FavouriteButton from './FavouriteButton';
 import { Link } from 'react-router-dom';
+import ROUTES from '../../constants/route';
 
 const imageBaseUrl = import.meta.env.VITE_IMAGE_BASE_URL;
 const placeHolderImageUrl = import.meta.env.VITE_PLACEHOLDER_IMAGE_URL;
@@ -23,7 +24,7 @@ const FavouriteMovieCard = memo(function FavouriteMovieCard({
         onDragEnd={onDragEnd}
       >
         <Grip size={18} className="inline-block mr-2 top" />
-        <Link to={`/movie/${movie.id}/details`}>
+        <Link to={ROUTES.MOVIEDETAILS.replace(':id', movie.id)}>
           <img
             src={posterUrl}
             alt={movie.title}

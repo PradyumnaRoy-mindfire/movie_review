@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Search, Menu, X } from 'lucide-react';
 import movieLogo from '../../assets/movie_logo.png';
+import { showEmptySearchQueryToast } from '../../utils/toastNotifications';
+import ROUTES from '../../constants/route';
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -9,7 +11,12 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+    const trimmedQuery = searchQuery.trim();
+    if (!trimmedQuery) {
+      showEmptySearchQueryToast();
+      return;
+    }
+    navigate(`${ROUTES.SEARCH}?q=${encodeURIComponent(trimmedQuery)}`);
     setSearchQuery('');
     setIsMenuOpen(false);
   };
@@ -58,28 +65,28 @@ const Navbar = () => {
           <div className="font-bold text-lg space-x-4 flex flex-row">
             <NavLink
               className={navLinkClass}
-              to="/"
+              to={ROUTES.HOME}
               aria-label="Go to home page"
             >
               Home
             </NavLink>
             <NavLink
               className={navLinkClass}
-              to="/favourite"
+              to={ROUTES.FAVOURITE}
               aria-label="Go to favourites page"
             >
               Favourite
             </NavLink>
             <NavLink
               className={navLinkClass}
-              to="/movies"
+              to={ROUTES.MOVIES}
               aria-label="Go to movies page"
             >
               Movies
             </NavLink>
             <NavLink
               className={navLinkClass}
-              to="/about-us"
+              to={ROUTES.ABOUTUS}
               aria-label="Go to about us page"
             >
               About Us
@@ -128,7 +135,7 @@ const Navbar = () => {
           <div className="font-bold text-lg space-y-2">
             <NavLink
               className={navLinkClass}
-              to="/"
+              to={ROUTES.HOME}
               onClick={() => setIsMenuOpen(false)}
               role="navlink"
             >
@@ -136,7 +143,7 @@ const Navbar = () => {
             </NavLink>
             <NavLink
               className={navLinkClass}
-              to="/favourite"
+              to={ROUTES.FAVOURITE}
               onClick={() => setIsMenuOpen(false)}
               role="navlink"
             >
@@ -144,7 +151,7 @@ const Navbar = () => {
             </NavLink>
             <NavLink
               className={navLinkClass}
-              to="/movies"
+              to={ROUTES.MOVIES}
               onClick={() => setIsMenuOpen(false)}
               role="navlink"
             >
@@ -152,7 +159,7 @@ const Navbar = () => {
             </NavLink>
             <NavLink
               className={navLinkClass}
-              to="/about-us"
+              to={ROUTES.ABOUTUS}
               onClick={() => setIsMenuOpen(false)}
               role="navlink"
             >

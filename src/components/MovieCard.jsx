@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import FavouriteButton from './addToFavourite/FavouriteButton';
 import { Link } from 'react-router-dom';
+import ROUTES from '../constants/route';
 
 const imageBaseUrl = import.meta.env.VITE_IMAGE_BASE_URL;
 const placeHolderImageUrl = import.meta.env.VITE_PLACEHOLDER_IMAGE_URL;
@@ -17,7 +18,7 @@ const MovieCard = memo(function MovieCard({ movie, renderBadge = null }) {
       aria-label={`Movie is ${movie.title}`}
     >
       <Link
-        to={`/movie/${movie.id}/details`}
+        to={ROUTES.MOVIEDETAILS.replace(':id', movie.id)}
         aria-label={`View details of the ${movie.title}`}
       >
         <div className="relative">
