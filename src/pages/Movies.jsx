@@ -1,14 +1,14 @@
 import { useSearchParams } from 'react-router-dom';
 import MovieCard from '../components/MovieCard';
 import LoadingAndErrorHandler from '../components/errorHandling/LoadingAndErrorHandler';
-import { MoviesData } from '../utils/MoviesData';
+import { useMoviesData } from '../utils/MoviesData';
 
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   let page = searchParams.get('page') || 1;
   page = parseInt(page);
 
-  let { data, isLoading, isError, error } = MoviesData(page);
+  let { data, isLoading, isError, error } = useMoviesData(page);
 
   if (isLoading || isError) {
     return (

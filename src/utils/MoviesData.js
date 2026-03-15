@@ -9,7 +9,7 @@ import {
 } from '../services/movieApiService';
 import { useQuery } from '@tanstack/react-query';
 
-export const MoviesData = (page) => {
+export const useMoviesData = (page) => {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['movies', page],
     queryFn: () => fetchMovies(page),
@@ -18,7 +18,7 @@ export const MoviesData = (page) => {
   return { data, isLoading, isError, error };
 };
 
-export const MovieDetailsData = (id) => {
+export const useMovieDetailsData = (id) => {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['movieDetails', id],
     queryFn: () => fetchMovieDetails(id),
@@ -27,16 +27,17 @@ export const MovieDetailsData = (id) => {
   return { data, isLoading, isError, error };
 };
 
-export const SearchMovie = (query) => {
+export const useSearchMovie = (query) => {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['searchMovie', query],
     queryFn: () => searchMovies(query),
+    enabled: !!query && query.trim().length > 0,
   });
 
   return { data, isLoading, isError, error };
 };
 
-export const TrendingMovies = () => {
+export const useTrendingMovies = () => {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['trendingMovies'],
     queryFn: () => fetchTrendingMovies(),
@@ -45,7 +46,7 @@ export const TrendingMovies = () => {
   return { data, isLoading, isError, error };
 };
 
-export const UpcomingMovies = () => {
+export const useUpcomingMovies = () => {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['upcomingMovies'],
     queryFn: () => fetchUpcomingMovies(),
@@ -54,7 +55,7 @@ export const UpcomingMovies = () => {
   return { data, isLoading, isError, error };
 };
 
-export const TopRatedMovies = () => {
+export const useTopRatedMovies = () => {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['topRatedMovies'],
     queryFn: () => fetchTopRatedMovies(),
@@ -63,7 +64,7 @@ export const TopRatedMovies = () => {
   return { data, isLoading, isError, error };
 };
 
-export const NowPlayingMovies = () => {
+export const useNowPlayingMovies = () => {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['nowPlayingMovies'],
     queryFn: () => fetchNowPlayingMovies(),

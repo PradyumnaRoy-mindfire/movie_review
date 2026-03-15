@@ -1,13 +1,13 @@
 import { useSearchParams } from 'react-router-dom';
 import MovieCard from '../components/MovieCard';
 import LoadingAndErrorHandler from '../components/errorHandling/LoadingAndErrorHandler';
-import { SearchMovie } from '../utils/MoviesData';
+import { useSearchMovie } from '../utils/MoviesData';
 
 const SearchResults = () => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get('q') || '';
 
-  const { data, isLoading, isError, error } = SearchMovie(query);
+  const { data, isLoading, isError, error } = useSearchMovie(query);
 
   if (isLoading || isError) {
     return (

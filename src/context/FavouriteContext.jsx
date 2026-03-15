@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useMemo } from 'react';
 import {
   showAddToFavouritesToast,
   showRemoveFromFavouritesToast,
@@ -28,18 +28,27 @@ export const FavouriteProvider = ({ children }) => {
     }
   });
 
+  const favouriteIds = useMemo(
+    () => new Set(favourites.map((fav) => fav.id)),
+    [favourites]
+  );
+  const watchLaterIds = useMemo(
+    () => new Set(watchLaterMovies.map((watch) => watch.id)),
+    [watchLaterMovies]
+  );
+
   const isFavourite = (movie) => {
     if (!movie) {
       return false;
     }
-    return favourites.some((fav) => fav.id === movie.id);
+    return favouriteIds.has(movie.id);
   };
 
   const isWatchLater = (movie) => {
     if (!movie) {
       return false;
     }
-    return watchLaterMovies.some((watch) => watch.id === movie.id);
+    return watchLaterIds.has(movie.id);
   };
 
   const toggleWatchLater = (movie) => {

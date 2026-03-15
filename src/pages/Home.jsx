@@ -1,9 +1,9 @@
 import MovieCategory from '../components/homePageMovieCategories/MovieCategory';
 import {
-  TrendingMovies,
-  TopRatedMovies,
-  UpcomingMovies,
-  NowPlayingMovies,
+  useTrendingMovies,
+  useTopRatedMovies,
+  useUpcomingMovies,
+  useNowPlayingMovies,
 } from '../utils/MoviesData';
 import {
   ChartNoAxesCombined,
@@ -11,36 +11,50 @@ import {
   CalendarFold,
   Clapperboard,
 } from 'lucide-react';
+import { useCallback } from 'react';
+
+const TrendingBadge = () => (
+  <span className="absolute left-2 z-10 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+    Trending
+  </span>
+);
+
+const TopRatedBadge = () => (
+  <span className="absolute left-2 z-10 bg-amber-600 text-white text-xs font-bold px-2 py-1 rounded-lg">
+    Top Rated
+  </span>
+);
+
+const UpcomingBadge = () => (
+  <span className="absolute left-2 z-10 bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded-md">
+    Upcoming
+  </span>
+);
+
+const NowPlayingBadge = () => (
+  <span className="absolute left-2 z-10 bg-pink-500 text-white text-xs font-bold px-2 py-1 rounded-l-2xl">
+    Now Playing
+  </span>
+);
 
 const Home = () => {
-  const trendingData = TrendingMovies();
-  const topRatedData = TopRatedMovies();
-  const upcomingData = UpcomingMovies();
-  const nowPlayingData = NowPlayingMovies();
+  const trendingData = useTrendingMovies();
+  const topRatedData = useTopRatedMovies();
+  const upcomingData = useUpcomingMovies();
+  const nowPlayingData = useNowPlayingMovies();
 
-  const trendingBadge = () => (
-    <span className="absolute left-2 z-10 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-      Trending
-    </span>
-  );
-
-  const topRatedBadge = () => (
-    <span className="absolute left-2 z-10 bg-amber-600 text-white text-xs font-bold px-2 py-1 rounded-lg">
-      Top Rated
-    </span>
-  );
-
-  const upcomingBadge = () => (
-    <span className="absolute left-2 z-10 bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded-md">
-      Upcoming
-    </span>
-  );
-
-  const nowPlayingBadge = () => (
-    <span className="absolute left-2 z-10 bg-pink-500 text-white text-xs font-bold px-2 py-1 rounded-l-2xl">
-      Now Playing
-    </span>
-  );
+  const trendingBadge = useCallback(() => {
+    return <TrendingBadge />;
+  }, []);
+  const topRatedBadge = useCallback(() => {
+    return <TopRatedBadge />;
+  }, []);
+  const upcomingBadge = useCallback(() => {
+    return <UpcomingBadge />;
+  }, []);
+  const nowPlayingBadge = useCallback(() => {
+    return <NowPlayingBadge />;
+  }, []);
 
   return (
     <section

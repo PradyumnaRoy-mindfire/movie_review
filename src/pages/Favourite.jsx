@@ -22,23 +22,26 @@ const Favourite = () => {
   }, []);
 
   //when the movie will be drop to any section
-  const handleDrop = (destination) => (e) => {
-    e.preventDefault();
-    //if source,destination  is null
-    if (source == null || destination == null || source === destination) {
-      return;
-    }
+  const handleDrop = useCallback(
+    (destination) => (e) => {
+      e.preventDefault();
+      //if source,destination  is null
+      if (source == null || destination == null || source === destination) {
+        return;
+      }
 
-    //if destination is favourites, movie comes from watchLater to favourites
-    if (destination == 'favourites') {
-      toggleWatchLater(draggedMovie);
-    } else {
-      //destination is watchLater, movie comes from favourites too watchLater
-      toggleWatchLater(draggedMovie);
-    }
-    setDraggedMovie(null);
-    setSource(null);
-  };
+      //if destination is favourites, movie comes from watchLater to favourites
+      if (destination == 'favourites') {
+        toggleWatchLater(draggedMovie);
+      } else {
+        //destination is watchLater, movie comes from favourites too watchLater
+        toggleWatchLater(draggedMovie);
+      }
+      setDraggedMovie(null);
+      setSource(null);
+    },
+    [source, draggedMovie, toggleWatchLater]
+  );
 
   const handleDragEnd = useCallback(() => {
     setDraggedMovie(null);
