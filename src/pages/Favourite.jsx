@@ -2,19 +2,10 @@ import { useContext, useState, useCallback, useMemo } from 'react';
 import { FavouriteContext } from '../context/FavouriteContext';
 import DropZone from '../components/addToFavourite/DropZone';
 import { Grip, AlarmClock, HeartPlus } from 'lucide-react';
-import { logError } from '../utils/errorLogger';
 
 const Favourite = () => {
-  const { favourites } = useContext(FavouriteContext);
-  const [watchLaterMovies, setWatchLaterMovies] = useState(() => {
-    const temp = localStorage.getItem('watchLaterMovies');
-    try {
-      return temp ? JSON.parse(temp) : [];
-    } catch (error) {
-      logError(error, 'LOCALSTORAGE_ERROR');
-      return [];
-    }
-  });
+  const { favourites, watchLaterMovies, toggleWatchLater } =
+    useContext(FavouriteContext);
   const [source, setSource] = useState(null);
   const [draggedMovie, setDraggedMovie] = useState(null);
 
@@ -40,18 +31,10 @@ const Favourite = () => {
 
     //if destination is favourites, movie comes from watchLater to favourites
     if (destination == 'favourites') {
-      setWatchLaterMovies((prev) => {
-        const updated = prev.filter((movie) => movie.id !== draggedMovie.id);
-        localStorage.setItem('watchLaterMovies', JSON.stringify(updated));
-        return updated;
-      });
+      toggleWatchLater(draggedMovie);
     } else {
       //destination is watchLater, movie comes from favourites too watchLater
-      setWatchLaterMovies((prev) => {
-        const updated = [...prev, draggedMovie];
-        localStorage.setItem('watchLaterMovies', JSON.stringify(updated));
-        return updated;
-      });
+      toggleWatchLater(draggedMovie);
     }
     setDraggedMovie(null);
     setSource(null);

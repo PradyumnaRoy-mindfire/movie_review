@@ -18,11 +18,43 @@ export const FavouriteProvider = ({ children }) => {
     }
   });
 
+  const [watchLaterMovies, setWatchLaterMovies] = useState(() => {
+    const stored = localStorage.getItem('watchLaterMovies');
+    try {
+      return stored ? JSON.parse(stored) : [];
+    } catch (error) {
+      logError(error, 'LOCALSTORAGE_WATCHLATER_FETCH_ERROR');
+      return [];
+    }
+  });
+
   const isFavourite = (movie) => {
     if (!movie) {
       return false;
     }
     return favourites.some((fav) => fav.id === movie.id);
+  };
+
+  const isWatchLater = (movie) => {
+    if (!movie) {
+      return false;
+    }
+    return watchLaterMovies.some((watch) => watch.id === movie.id);
+  };
+
+  const toggleWatchLater = (movie) => {
+    if (!movie) {
+      return;
+    }
+    if (isWatchLater(movie)) {
+      const updated = watchLaterMovies.filter((watch) => watch.id !== movie.id);
+      setWatchLaterMovies(updated);
+      localStorage.setItem('watchLaterMovies', JSON.stringify(updated));
+    } else {
+      const updated = [...watchLaterMovies, movie];
+      setWatchLaterMovies(updated);
+      localStorage.setItem('watchLaterMovies', JSON.stringify(updated));
+    }
   };
 
   const toggleFavourite = (movie) => {
@@ -36,22 +68,9 @@ export const FavouriteProvider = ({ children }) => {
     if (isAlreadyFavourite) {
       updatedFavourites = favourites.filter((fav) => fav.id !== movie.id);
       showRemoveFromFavouritesToast(movie);
-
-      //remove from watchLater if it exists there
-      try {
-        const watchLaterData = localStorage.getItem('watchLaterMovies');
-        if (watchLaterData) {
-          const watchLater = JSON.parse(watchLaterData);
-          const filteredWatchLater = watchLater.filter(
-            (item) => item.id !== movie.id
-          );
-          localStorage.setItem(
-            'watchLaterMovies',
-            JSON.stringify(filteredWatchLater)
-          );
-        }
-      } catch (error) {
-        logError(error, 'LOCALSTORAGE_WATCHLATER_ERROR');
+      // Also remove from watchLater if it exists there
+      if (isWatchLater(movie)) {
+        toggleWatchLater(movie);
       }
     } else {
       updatedFavourites = [movie, ...favourites];
@@ -64,7 +83,14 @@ export const FavouriteProvider = ({ children }) => {
 
   return (
     <FavouriteContext.Provider
-      value={{ favourites, isFavourite, toggleFavourite }}
+      value={{
+        favourites,
+        watchLaterMovies,
+        isFavourite,
+        isWatchLater,
+        toggleFavourite,
+        toggleWatchLater,
+      }}
     >
       {children}
     </FavouriteContext.Provider>
