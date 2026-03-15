@@ -1,24 +1,28 @@
-import { useContext, useState, useEffect, useCallback } from 'react';
+import { useContext, useState, useCallback, useMemo } from 'react';
 import { FavouriteContext } from '../context/FavouriteContext';
 import DropZone from '../components/addToFavourite/DropZone';
 import { Grip, AlarmClock, HeartPlus } from 'lucide-react';
+import { logError } from '../utils/errorLogger';
 
 const Favourite = () => {
   const { favourites } = useContext(FavouriteContext);
-  const [favouriteMovies, setFavouriteMovies] = useState([]);
   const [watchLaterMovies, setWatchLaterMovies] = useState(() => {
     const temp = localStorage.getItem('watchLaterMovies');
-    return temp ? JSON.parse(temp) : [];
+    try {
+      return temp ? JSON.parse(temp) : [];
+    } catch (error) {
+      logError(error, 'LOCALSTORAGE_ERROR');
+      return [];
+    }
   });
   const [source, setSource] = useState(null);
   const [draggedMovie, setDraggedMovie] = useState(null);
 
-  useEffect(() => {
-    //filter the movies from  favourites to watchlater
-    const filteredFavourites = favourites.filter(
+  // filter favouriteMovie from favourites and watchLaterMovies using useMemo
+  const favouriteMovies = useMemo(() => {
+    return favourites.filter(
       (fav) => !watchLaterMovies.some((watch) => watch.id === fav.id)
     );
-    setFavouriteMovies(filteredFavourites);
   }, [favourites, watchLaterMovies]);
 
   const handleDragStart = useCallback((movie, source) => {
@@ -36,26 +40,18 @@ const Favourite = () => {
 
     //if destination is favourites, movie comes from watchLater to favourites
     if (destination == 'favourites') {
-      setWatchLaterMovies((prev) =>
-        prev.filter((movie) => movie.id !== draggedMovie.id)
-      );
-      setFavouriteMovies((prev) => [...prev, draggedMovie]);
-      localStorage.setItem(
-        'watchLaterMovies',
-        JSON.stringify(
-          watchLaterMovies.filter((movie) => movie.id !== draggedMovie.id)
-        )
-      );
+      setWatchLaterMovies((prev) => {
+        const updated = prev.filter((movie) => movie.id !== draggedMovie.id);
+        localStorage.setItem('watchLaterMovies', JSON.stringify(updated));
+        return updated;
+      });
     } else {
       //destination is watchLater, movie comes from favourites too watchLater
-      setFavouriteMovies((prev) =>
-        prev.filter((movie) => movie.id !== draggedMovie.id)
-      );
-      setWatchLaterMovies((prev) => [...prev, draggedMovie]);
-      localStorage.setItem(
-        'watchLaterMovies',
-        JSON.stringify([...watchLaterMovies, draggedMovie])
-      );
+      setWatchLaterMovies((prev) => {
+        const updated = [...prev, draggedMovie];
+        localStorage.setItem('watchLaterMovies', JSON.stringify(updated));
+        return updated;
+      });
     }
     setDraggedMovie(null);
     setSource(null);
