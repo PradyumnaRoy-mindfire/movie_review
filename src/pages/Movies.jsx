@@ -1,14 +1,14 @@
 import { useSearchParams } from 'react-router-dom';
 import MovieCard from '../components/MovieCard';
 import LoadingAndErrorHandler from '../components/errorHandling/LoadingAndErrorHandler';
-import { MoviesData } from '../utils/MoviesData';
+import { useMoviesData } from '../utils/MoviesData';
 
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  let page = searchParams.get('page') || 1;
-  page = parseInt(page);
+  const pageParam = searchParams.get('page') || 1;
+  const page = parseInt(pageParam);
 
-  let { data, isLoading, isError, error } = MoviesData(page);
+  const { data, isLoading, isError, error } = useMoviesData(page);
 
   if (isLoading || isError) {
     return (
@@ -43,7 +43,7 @@ const Movies = () => {
       >
         <button
           className={`px-4 py-1.5 bg-orange-500 text-white hover:bg-orange-600 transition-colors rounded-lg active:scale-90 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-orange-400`}
-          disabled={page == 1}
+          disabled={page === 1}
           onClick={goToPrevPage}
           aria-label="Go to previous page"
         >
@@ -52,7 +52,7 @@ const Movies = () => {
         <span className="mx-4 font-bold text-gray-700">Page {page}</span>
         <button
           className="px-4 py-1.5 bg-orange-500 text-white hover:bg-orange-600 transition-colors active:scale-90 rounded-lg cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-orange-400"
-          disabled={page == data.total_pages}
+          disabled={page === data.total_pages}
           onClick={goToNextPage}
           aria-label="Go to next page"
         >

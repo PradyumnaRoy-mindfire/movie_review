@@ -1,24 +1,19 @@
-import { useContext, useState, useEffect, useCallback } from 'react';
+import { useContext, useState, useCallback, useMemo } from 'react';
 import { FavouriteContext } from '../context/FavouriteContext';
 import DropZone from '../components/addToFavourite/DropZone';
 import { Grip, AlarmClock, HeartPlus } from 'lucide-react';
 
 const Favourite = () => {
-  const { favourites } = useContext(FavouriteContext);
-  const [favouriteMovies, setFavouriteMovies] = useState([]);
-  const [watchLaterMovies, setWatchLaterMovies] = useState(() => {
-    const temp = localStorage.getItem('watchLaterMovies');
-    return temp ? JSON.parse(temp) : [];
-  });
+  const { favourites, watchLaterMovies, toggleWatchLater } =
+    useContext(FavouriteContext);
   const [source, setSource] = useState(null);
   const [draggedMovie, setDraggedMovie] = useState(null);
 
-  useEffect(() => {
-    //filter the movies from  favourites to watchlater
-    const filteredFavourites = favourites.filter(
+  // filter favouriteMovie from favourites and watchLaterMovies using useMemo
+  const favouriteMovies = useMemo(() => {
+    return favourites.filter(
       (fav) => !watchLaterMovies.some((watch) => watch.id === fav.id)
     );
-    setFavouriteMovies(filteredFavourites);
   }, [favourites, watchLaterMovies]);
 
   const handleDragStart = useCallback((movie, source) => {
@@ -27,39 +22,26 @@ const Favourite = () => {
   }, []);
 
   //when the movie will be drop to any section
-  const handleDrop = (destination) => (e) => {
-    e.preventDefault();
-    //if source,destination  is null
-    if (source == null || destination == null || source === destination) {
-      return;
-    }
+  const handleDrop = useCallback(
+    (destination) => (e) => {
+      e.preventDefault();
+      //if source,destination  is null
+      if (source == null || destination == null || source === destination) {
+        return;
+      }
 
-    //if destination is favourites, movie comes from watchLater to favourites
-    if (destination == 'favourites') {
-      setWatchLaterMovies((prev) =>
-        prev.filter((movie) => movie.id !== draggedMovie.id)
-      );
-      setFavouriteMovies((prev) => [...prev, draggedMovie]);
-      localStorage.setItem(
-        'watchLaterMovies',
-        JSON.stringify(
-          watchLaterMovies.filter((movie) => movie.id !== draggedMovie.id)
-        )
-      );
-    } else {
-      //destination is watchLater, movie comes from favourites too watchLater
-      setFavouriteMovies((prev) =>
-        prev.filter((movie) => movie.id !== draggedMovie.id)
-      );
-      setWatchLaterMovies((prev) => [...prev, draggedMovie]);
-      localStorage.setItem(
-        'watchLaterMovies',
-        JSON.stringify([...watchLaterMovies, draggedMovie])
-      );
-    }
-    setDraggedMovie(null);
-    setSource(null);
-  };
+      //if destination is favourites, movie comes from watchLater to favourites
+      if (destination == 'favourites') {
+        toggleWatchLater(draggedMovie);
+      } else {
+        //destination is watchLater, movie comes from favourites too watchLater
+        toggleWatchLater(draggedMovie);
+      }
+      setDraggedMovie(null);
+      setSource(null);
+    },
+    [source, draggedMovie, toggleWatchLater]
+  );
 
   const handleDragEnd = useCallback(() => {
     setDraggedMovie(null);

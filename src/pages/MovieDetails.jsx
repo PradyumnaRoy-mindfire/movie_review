@@ -1,5 +1,5 @@
-import { useParams } from 'react-router-dom';
-import { MovieDetailsData } from '../utils/MoviesData';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useMovieDetailsData } from '../utils/MoviesData';
 import LoadingAndErrorHandler from '../components/errorHandling/LoadingAndErrorHandler';
 import FavouriteButton from '../components/addToFavourite/FavouriteButton';
 import { Star, Clock, Calendar, DollarSign } from 'lucide-react';
@@ -7,10 +7,22 @@ import { Star, Clock, Calendar, DollarSign } from 'lucide-react';
 const imageBaseUrl = import.meta.env.VITE_IMAGE_BASE_URL;
 const placeHolderImageUrl = import.meta.env.VITE_PLACEHOLDER_IMAGE_URL;
 
+const formatCurrency = (amount) => {
+  if (!amount) {
+    return 'N/A';
+  }
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    maximumFractionDigits: 0,
+  }).format(amount);
+};
+
 const MovieDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
-  const { data: movie, isLoading, isError, error } = MovieDetailsData(id);
+  const { data: movie, isLoading, isError, error } = useMovieDetailsData(id);
 
   if (isLoading || isError) {
     return (
@@ -33,17 +45,6 @@ const MovieDetails = () => {
   const backdropUrl = movie.backdrop_path
     ? `${imageBaseUrl}w1280${movie.backdrop_path}`
     : placeHolderImageUrl;
-
-  const formatCurrency = (amount) => {
-    if (!amount) {
-      return 'N/A';
-    }
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      maximumFractionDigits: 0,
-    }).format(amount);
-  };
 
   return (
     <div className="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 min-h-screen relative pb-16">
@@ -177,7 +178,7 @@ const MovieDetails = () => {
 
       <button
         className="px-4 py-2 bg-gray-400 text-white rounded hover:bg-gray-500 transition-colors fixed bottom-8 sm:bottom-10 lg:bottom-14 right-4"
-        onClick={() => window.history.back()}
+        onClick={() => navigate(-1)}
         aria-label="Go back to previous page"
       >
         Back

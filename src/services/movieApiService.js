@@ -26,10 +26,10 @@ export const fetchMovies = async (page) => {
   return apiRequest(endpoint);
 };
 
-export async function fetchMovieDetails(movieId) {
+export const fetchMovieDetails = async (movieId) => {
   const endpoint = `/movie/${movieId}?api_key=${MOVIE_API_KEY}`;
   return apiRequest(endpoint);
-}
+};
 
 export const searchMovies = async (query) => {
   const endpoint = `/search/movie?api_key=${MOVIE_API_KEY}&query=${encodeURIComponent(query)}`;
@@ -46,12 +46,12 @@ export const fetchTopRatedMovies = async () => {
   return apiRequest(endpoint);
 };
 
-export async function fetchUpcomingMovies() {
+export const fetchUpcomingMovies = async () => {
   const endpoint = `/movie/upcoming?api_key=${MOVIE_API_KEY}`;
   return apiRequest(endpoint);
-}
+};
 
-export async function fetchNowPlayingMovies() {
+export const fetchNowPlayingMovies = async () => {
   const endpoint = `/movie/now_playing?api_key=${MOVIE_API_KEY}`;
   return apiRequest(endpoint);
-}
+};

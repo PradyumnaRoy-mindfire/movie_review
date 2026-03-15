@@ -2,9 +2,12 @@ import { Heart } from 'lucide-react';
 import { useContext } from 'react';
 import { FavouriteContext } from '../../context/FavouriteContext';
 
-const Favourite = ({ movie, size }) => {
-  size = size || 18;
+const FavouriteButton = ({ movie, size = 18 }) => {
   const { isFavourite, toggleFavourite } = useContext(FavouriteContext);
+  const isCurrentlyFavourite = isFavourite(movie);
+  const ariaLabel = isCurrentlyFavourite
+    ? `Remove "${movie.title}" from favourites`
+    : `Add "${movie.title}" to favourites`;
 
   return (
     <button
@@ -14,9 +17,9 @@ const Favourite = ({ movie, size }) => {
       }}
       className="bg-white p-2 rounded-full shadow-md cursor-pointer"
       title={
-        isFavourite(movie) ? 'Remove from favourites' : 'Add to favourites'
+        isCurrentlyFavourite ? 'Remove from favourites' : 'Add to favourites'
       }
-      aria-label="Toggle favourite status"
+      aria-label={ariaLabel}
     >
       <Heart
         size={size}
@@ -29,4 +32,4 @@ const Favourite = ({ movie, size }) => {
   );
 };
 
-export default Favourite;
+export default FavouriteButton;

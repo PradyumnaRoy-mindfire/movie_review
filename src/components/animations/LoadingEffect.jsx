@@ -12,7 +12,7 @@ const LoadingEffect = memo(function LoadingEffect() {
     />
   );
   return (
-    <div className="fixed top-[80%] left-1/2 -translate-x-1/2 -translate-y-1/2 p-5 z-50 flex justify-center items-center">
+    <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-5 z-50 flex justify-center items-center">
       {loadingEffect}
     </div>
   );
