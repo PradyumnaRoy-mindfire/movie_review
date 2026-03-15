@@ -15,6 +15,14 @@ const FavouriteMovieCard = memo(function FavouriteMovieCard({
   const posterUrl = movie.poster_path
     ? `${imageBaseUrl}w200${movie.poster_path}`
     : placeHolderImageUrl;
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      onDragStart();
+    }
+  };
+
   return (
     <>
       <div
@@ -22,6 +30,10 @@ const FavouriteMovieCard = memo(function FavouriteMovieCard({
         draggable
         onDragStart={onDragStart}
         onDragEnd={onDragEnd}
+        onKeyDown={handleKeyDown}
+        tabIndex={0}
+        role="button"
+        aria-label={`Drag or press Enter to move "${movie.title}" - Rating: ${movie.vote_average}/10`}
       >
         <Grip size={18} className="inline-block mr-2 top" />
         <Link to={ROUTES.MOVIEDETAILS.replace(':id', movie.id)}>

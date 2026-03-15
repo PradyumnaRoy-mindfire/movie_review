@@ -57,7 +57,7 @@ npm run dev
 
 5. Open http://localhost:5173 in your browser
 
-## Runing with Docker
+## Running with Docker
 
 If you prefer Docker:
 

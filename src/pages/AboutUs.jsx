@@ -149,7 +149,7 @@ const AboutUs = () => {
               <Quote className="w-8 h-8" />
             </span>
             <p className="text-gray-400 text-sm mt-2">
-              View detailed information about each movie (cast, ratings, budger)
+              View detailed information about each movie (cast, ratings, budget)
               and stay updated with the latest releases, trends.
             </p>
           </div>

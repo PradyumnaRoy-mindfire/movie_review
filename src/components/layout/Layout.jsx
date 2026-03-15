@@ -8,7 +8,12 @@ const Layout = () => {
       <header>
         <Navbar />
       </header>
-      <main className="flex-grow" role="main" aria-label="Main content">
+      <main
+        className="flex-grow"
+        role="main"
+        id="main-content"
+        aria-label="Main content"
+      >
         <Outlet />
       </main>
       <Footer />
