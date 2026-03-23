@@ -7,6 +7,14 @@ import eslintConfigPrettier from 'eslint-config-prettier';
 import eslintPluginPrettier from 'eslint-plugin-prettier';
 
 export default [
+  {
+    ignores: [
+      'src/__tests__/**',
+      'src/__mocks__/**',
+      'coverage/**',
+      'node_modules/**',
+    ],
+  },
   js.configs.recommended,
   eslintConfigPrettier,
   {
@@ -39,6 +47,22 @@ export default [
       react: {
         version: 'detect',
       },
+    },
+  },
+  {
+    files: ['src/setupTests.js'],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        jest: 'readonly',
+        global: 'readonly',
+      },
+    },
+  },
+  {
+    files: ['src/__mocks__/**'],
+    languageOptions: {
+      globals: globals.node,
     },
   },
 ];
