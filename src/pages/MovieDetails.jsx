@@ -3,9 +3,7 @@ import { useMovieDetailsData } from '../utils/MoviesData';
 import LoadingAndErrorHandler from '../components/errorHandling/LoadingAndErrorHandler';
 import FavouriteButton from '../components/addToFavourite/FavouriteButton';
 import { Star, Clock, Calendar, DollarSign } from 'lucide-react';
-
-const imageBaseUrl = import.meta.env.VITE_IMAGE_BASE_URL;
-const placeHolderImageUrl = import.meta.env.VITE_PLACEHOLDER_IMAGE_URL;
+import { getImageBaseUrl, getPlaceHolderImageUrl } from '../env';
 
 const formatCurrency = (amount) => {
   if (!amount) {
@@ -39,12 +37,12 @@ const MovieDetails = () => {
   }
 
   const posterUrl = movie.poster_path
-    ? `${imageBaseUrl}w500${movie.poster_path}`
-    : placeHolderImageUrl;
+    ? `${getImageBaseUrl()}w500${movie.poster_path}`
+    : getPlaceHolderImageUrl();
 
   const backdropUrl = movie.backdrop_path
-    ? `${imageBaseUrl}w1280${movie.backdrop_path}`
-    : placeHolderImageUrl;
+    ? `${getImageBaseUrl()}w1280${movie.backdrop_path}`
+    : getPlaceHolderImageUrl();
 
   return (
     <div className="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 min-h-screen relative pb-16">
@@ -158,7 +156,7 @@ const MovieDetails = () => {
                     >
                       {company.logo_path ? (
                         <img
-                          src={`${imageBaseUrl}w92${company.logo_path}`}
+                          src={`${getImageBaseUrl()}w92${company.logo_path}`}
                           alt={company.name}
                           className="w-16 h-16 object-contain"
                         />

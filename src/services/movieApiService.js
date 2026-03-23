@@ -1,11 +1,8 @@
 import axios from 'axios';
 import { logApiError } from '../utils/errorLogger';
-
-const MOVIE_API_BASE_URL = import.meta.env.VITE_MOVIE_BASE_URL;
-const MOVIE_API_KEY = import.meta.env.VITE_MOVIE_API_KEY;
+import { getMovieBaseUrl, getMovieApiKey } from '../env';
 
 const api = axios.create({
-  baseURL: MOVIE_API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -13,7 +10,8 @@ const api = axios.create({
 
 const apiRequest = async (endpoint) => {
   try {
-    const response = await api.get(endpoint);
+    const url = `${getMovieBaseUrl()}${endpoint}`;
+    const response = await api.get(url);
     return response.data;
   } catch (error) {
     logApiError(error, endpoint);
@@ -22,36 +20,36 @@ const apiRequest = async (endpoint) => {
 };
 
 export const fetchMovies = async (page) => {
-  const endpoint = `/movie/popular?api_key=${MOVIE_API_KEY}&page=${page}`;
+  const endpoint = `/movie/popular?api_key=${getMovieApiKey()}&page=${page}`;
   return apiRequest(endpoint);
 };
 
 export const fetchMovieDetails = async (movieId) => {
-  const endpoint = `/movie/${movieId}?api_key=${MOVIE_API_KEY}`;
+  const endpoint = `/movie/${movieId}?api_key=${getMovieApiKey()}`;
   return apiRequest(endpoint);
 };
 
 export const searchMovies = async (query) => {
-  const endpoint = `/search/movie?api_key=${MOVIE_API_KEY}&query=${encodeURIComponent(query)}`;
+  const endpoint = `/search/movie?api_key=${getMovieApiKey()}&query=${encodeURIComponent(query)}`;
   return apiRequest(endpoint);
 };
 
 export const fetchTrendingMovies = async () => {
-  const endpoint = `/trending/movie/week?api_key=${MOVIE_API_KEY}`;
+  const endpoint = `/trending/movie/week?api_key=${getMovieApiKey()}`;
   return apiRequest(endpoint);
 };
 
 export const fetchTopRatedMovies = async () => {
-  const endpoint = `/movie/top_rated?api_key=${MOVIE_API_KEY}`;
+  const endpoint = `/movie/top_rated?api_key=${getMovieApiKey()}`;
   return apiRequest(endpoint);
 };
 
 export const fetchUpcomingMovies = async () => {
-  const endpoint = `/movie/upcoming?api_key=${MOVIE_API_KEY}`;
+  const endpoint = `/movie/upcoming?api_key=${getMovieApiKey()}`;
   return apiRequest(endpoint);
 };
 
 export const fetchNowPlayingMovies = async () => {
-  const endpoint = `/movie/now_playing?api_key=${MOVIE_API_KEY}`;
+  const endpoint = `/movie/now_playing?api_key=${getMovieApiKey()}`;
   return apiRequest(endpoint);
 };

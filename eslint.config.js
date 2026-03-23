@@ -13,6 +13,8 @@ export default [
       'src/__mocks__/**',
       'coverage/**',
       'node_modules/**',
+      '**/*.config.js',
+      'babel.config.cjs',
     ],
   },
   js.configs.recommended,

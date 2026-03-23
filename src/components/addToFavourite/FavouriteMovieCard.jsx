@@ -3,9 +3,7 @@ import { Grip, Calendar, Star } from 'lucide-react';
 import FavouriteButton from './FavouriteButton';
 import { Link } from 'react-router-dom';
 import ROUTES from '../../constants/route';
-
-const imageBaseUrl = import.meta.env.VITE_IMAGE_BASE_URL;
-const placeHolderImageUrl = import.meta.env.VITE_PLACEHOLDER_IMAGE_URL;
+import { getImageBaseUrl, getPlaceHolderImageUrl } from '../../env';
 
 const FavouriteMovieCard = memo(function FavouriteMovieCard({
   movie,
@@ -13,8 +11,8 @@ const FavouriteMovieCard = memo(function FavouriteMovieCard({
   onDragEnd,
 }) {
   const posterUrl = movie.poster_path
-    ? `${imageBaseUrl}w200${movie.poster_path}`
-    : placeHolderImageUrl;
+    ? `${getImageBaseUrl()}w200${movie.poster_path}`
+    : getPlaceHolderImageUrl();
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
