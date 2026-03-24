@@ -13,7 +13,7 @@ describe('FavouriteContext', () => {
     <FavouriteProvider>{children}</FavouriteProvider>
   );
 
-  // Clear localStorage before each test for clean state
+  // Clear localStorage before each test
   beforeEach(() => {
     localStorage.clear();
   });

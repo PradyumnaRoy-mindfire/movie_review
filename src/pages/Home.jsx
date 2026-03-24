@@ -4,7 +4,7 @@ import {
   useTopRatedMovies,
   useUpcomingMovies,
   useNowPlayingMovies,
-} from '../utils/MoviesData';
+} from '../hooks/useMovies';
 import {
   ChartNoAxesCombined,
   Star,

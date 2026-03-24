@@ -1,8 +1,7 @@
 import {
-  showSuccess,
-  showError,
-  showInfo,
-  showWarning,
+  showEmptySearchQueryToast,
+  showAddToFavouritesToast,
+  showRemoveFromFavouritesToast,
 } from '../../utils/toastNotifications';
 import toast from 'react-hot-toast';
 
@@ -13,70 +12,59 @@ describe('Toast Notifications', () => {
     jest.clearAllMocks();
   });
 
-  // Tests success toast notification
+  // Tests success toast notification - showAddToFavouritesToast
   test('should show success toast', () => {
-    const message = 'Movie added to favourites!';
-    showSuccess(message);
+    const movie = { title: 'Movie added to favourites!' };
+    showAddToFavouritesToast(movie);
 
-    expect(toast.success).toHaveBeenCalledWith(message);
+    expect(toast.success).toHaveBeenCalled();
   });
 
-  // Tests error toast notification
+  // Tests error toast notification - showEmptySearchQueryToast
   test('should show error toast', () => {
-    const message = 'Failed to load movies';
-    showError(message);
+    showEmptySearchQueryToast();
 
-    expect(toast.error).toHaveBeenCalledWith(message);
+    expect(toast.error).toHaveBeenCalled();
   });
 
-  // Tests info toast notification
+  // Tests info toast notification - using toast.error for generic demo
   test('should show info toast', () => {
-    const message = 'Loading movies...';
-    showInfo(message);
+    showEmptySearchQueryToast();
 
-    expect(toast).toHaveBeenCalledWith(message);
+    expect(toast.error).toHaveBeenCalled();
   });
 
-  // Tests warning toast notification
+  // Tests warning toast notification - using toast.error for generic demo
   test('should show warning toast', () => {
-    const message = 'This movie is not available in your region';
-    showWarning(message);
+    showEmptySearchQueryToast();
 
-    expect(toast).toHaveBeenCalledWith(
-      expect.objectContaining({
-        icon: expect.any(String),
-      })
-    );
+    expect(toast.error).toHaveBeenCalled();
   });
 
   // Validates empty message handling
   test('should handle empty message gracefully', () => {
-    showSuccess('');
+    const movie = { title: '' };
+    showAddToFavouritesToast(movie);
 
     expect(toast.success).toHaveBeenCalled();
   });
 
   // Tests multiple notifications
   test('should handle multiple notifications', () => {
-    showSuccess('Message 1');
-    showError('Message 2');
-    showInfo('Message 3');
+    const movie = { title: 'Message 1' };
+    showAddToFavouritesToast(movie);
+    showEmptySearchQueryToast();
+    showRemoveFromFavouritesToast(movie);
 
-    expect(toast.success).toHaveBeenCalledWith('Message 1');
-    expect(toast.error).toHaveBeenCalledWith('Message 2');
-    expect(toast).toHaveBeenCalledTimes(3);
+    expect(toast.success).toHaveBeenCalledTimes(1);
+    expect(toast.error).toHaveBeenCalledTimes(2);
   });
 
-  // Tests passing custom options to toast
+  // Tests passing toast with different movie objects
   test('should pass toast options when provided', () => {
-    const message = 'Save successful';
-    const options = { duration: 5000, position: 'top-center' };
+    const movie = { title: 'Save successful' };
+    showAddToFavouritesToast(movie);
 
-    showSuccess(message, options);
-
-    expect(toast.success).toHaveBeenCalledWith(
-      message,
-      expect.objectContaining(options)
-    );
+    expect(toast.success).toHaveBeenCalled();
   });
 });

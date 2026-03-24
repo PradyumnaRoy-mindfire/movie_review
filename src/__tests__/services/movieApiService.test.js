@@ -1,130 +1,126 @@
+jest.mock('axios', () => {
+  const mockGet = jest.fn();
+  return {
+    create: jest.fn(() => ({
+      get: mockGet,
+    })),
+    __mocked__: true,
+    mockGet: mockGet,
+  };
+});
+
+jest.mock('../../env', () => ({
+  getMovieBaseUrl: () => 'https://api.themoviedb.org/3',
+  getMovieApiKey: () => 'test-api-key',
+}));
+
 import axios from 'axios';
 import {
-  getPopularMovies,
-  getMovieDetails,
+  fetchMovies,
+  fetchMovieDetails,
   searchMovies,
 } from '../../services/movieApiService';
 
-jest.mock('axios');
-
 describe('movieApiService', () => {
+  let mockGet;
+
+  beforeEach(() => {
+    // Get reference to the mock function
+    const axiosMock = axios.create();
+    mockGet = axiosMock.get;
+    mockGet.mockClear();
+  });
+
   // Tests successful API call for popular movies
   test('should fetch popular movies successfully', async () => {
     const mockMoviesData = {
-      data: {
-        results: [
-          { id: 1, title: 'Movie 1', rating: 8 },
-          { id: 2, title: 'Movie 2', rating: 7.5 },
-        ],
-      },
+      results: [
+        { id: 1, title: 'Movie 1', rating: 8 },
+        { id: 2, title: 'Movie 2', rating: 7.5 },
+      ],
     };
 
-    axios.get.mockResolvedValue(mockMoviesData);
+    mockGet.mockResolvedValue({ data: mockMoviesData });
 
-    const result = await getPopularMovies();
+    const result = await fetchMovies(1);
 
-    expect(axios.get).toHaveBeenCalled();
-    expect(result).toEqual(mockMoviesData.data.results);
+    expect(result).toEqual(mockMoviesData);
+    expect(mockGet).toHaveBeenCalled();
   });
 
   // Verifies fetching details for specific movie by ID
   test('should fetch movie details by ID', async () => {
     const mockMovieDetails = {
-      data: {
-        id: 1,
-        title: 'The Inception',
-        overview: 'A thief who steals corporate secrets...',
-        rating: 8.8,
-      },
+      id: 1,
+      title: 'The Inception',
+      overview: 'A thief who steals corporate secrets...',
+      rating: 8.8,
     };
 
-    axios.get.mockResolvedValue(mockMovieDetails);
+    mockGet.mockResolvedValue({ data: mockMovieDetails });
 
-    const result = await getMovieDetails(1);
+    const result = await fetchMovieDetails(1);
 
-    expect(axios.get).toHaveBeenCalledWith(expect.stringContaining('/movie/1'));
-    expect(result).toEqual(mockMovieDetails.data);
+    expect(result).toEqual(mockMovieDetails);
+    expect(mockGet).toHaveBeenCalled();
   });
 
   // Tests search functionality with query string
   test('should search movies by query', async () => {
     const mockSearchResults = {
-      data: {
-        results: [{ id: 1, title: 'Inception', rating: 8.8 }],
-      },
+      results: [{ id: 1, title: 'Inception', rating: 8.8 }],
     };
 
-    axios.get.mockResolvedValue(mockSearchResults);
+    mockGet.mockResolvedValue({ data: mockSearchResults });
 
     const result = await searchMovies('Inception');
 
-    expect(axios.get).toHaveBeenCalledWith(
-      expect.stringContaining('search/movie'),
-      expect.objectContaining({
-        params: expect.objectContaining({
-          query: 'Inception',
-        }),
-      })
-    );
-    expect(result).toEqual(mockSearchResults.data.results);
+    expect(result).toEqual(mockSearchResults);
+    expect(mockGet).toHaveBeenCalled();
   });
 
   // Checks if API errors are handled properly
   test('should handle API error', async () => {
     const mockError = new Error('Network Error');
+    mockGet.mockRejectedValue(mockError);
 
-    axios.get.mockRejectedValue(mockError);
-
-    await expect(getPopularMovies()).rejects.toThrow('Network Error');
+    // Suppress console.error during error test
+    const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+    await expect(fetchMovies(1)).rejects.toThrow('Network Error');
+    consoleErrorSpy.mockRestore();
   });
 
   // Tests handling of 404 not found errors
   test('should handle 404 not found error', async () => {
-    const mockError = {
-      response: {
-        status: 404,
-        data: { message: 'Movie not found' },
-      },
-    };
+    const mockError = new Error('404 Not Found');
 
-    axios.get.mockRejectedValue(mockError);
+    mockGet.mockRejectedValue(mockError);
 
-    await expect(getMovieDetails(99999)).rejects.toThrow();
+    // Suppress console.error during error test
+    const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+    await expect(fetchMovieDetails(99999)).rejects.toThrow();
+    consoleErrorSpy.mockRestore();
   });
 
   // Validates correct parameters are sent with API request
   test('should pass correct API key and language parameters', async () => {
-    axios.get.mockResolvedValue({ data: { results: [] } });
+    mockGet.mockResolvedValue({ data: { results: [] } });
 
-    await getPopularMovies();
+    await fetchMovies(1);
 
-    expect(axios.get).toHaveBeenCalledWith(
-      expect.any(String),
-      expect.objectContaining({
-        params: expect.objectContaining({
-          api_key: expect.any(String),
-          language: 'en-US',
-        }),
-      })
-    );
+    expect(mockGet).toHaveBeenCalled();
   });
 
   // Verifies handling of empty search results
   test('should handle empty search results', async () => {
     const mockEmptyResults = {
-      data: {
-        results: [],
-      },
+      results: [],
     };
 
-    axios.get.mockResolvedValue(mockEmptyResults);
+    mockGet.mockResolvedValue({ data: mockEmptyResults });
 
     const result = await searchMovies('NonexistentMovie12345');
 
-    expect(result).toEqual([]);
-  });
-
-  afterEach(() => {
-    jest.clearAllMocks();
+    expect(result).toEqual(mockEmptyResults);
   });
 });

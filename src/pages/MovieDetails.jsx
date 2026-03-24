@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { useMovieDetailsData } from '../utils/MoviesData';
+import { useMovieDetailsData } from '../hooks/useMovies';
 import LoadingAndErrorHandler from '../components/errorHandling/LoadingAndErrorHandler';
 import FavouriteButton from '../components/addToFavourite/FavouriteButton';
 import { Star, Clock, Calendar, DollarSign } from 'lucide-react';
