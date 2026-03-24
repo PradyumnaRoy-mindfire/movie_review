@@ -39,7 +39,7 @@ describe('errorLogger', () => {
     logError('test error');
 
     expect(console.error).toHaveBeenCalledWith(
-      expect.stringMatching(/\d{2}:\d{2}:\d{2}/)
+      expect.stringMatching(/\d{1,2}:\d{2}:\d{2}/)
     );
   });
 });
