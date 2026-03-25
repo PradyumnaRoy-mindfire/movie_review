@@ -5,7 +5,6 @@ export default {
   // Setup files to run before tests
   setupFilesAfterEnv: ['<rootDir>/src/setupTests.js'],
 
-  // Module name mapper for handling CSS and asset imports
   moduleNameMapper: {
     // Handle CSS imports (with CSS modules)
     '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
@@ -16,19 +15,19 @@ export default {
       '<rootDir>/src/__mocks__/fileMock.js',
   },
 
-  // Transform files using babel-jest
+  // uses Babel to transform files before testing
   transform: {
     '^.+\\.(js|jsx)$': 'babel-jest',
   },
 
-  // Test file patterns to look for
+  // Tells Jest where to find test files
   testMatch: [
     '<rootDir>/src/__tests__/**/*.{js,jsx}',
     '<rootDir>/src/**/__tests__/**/*.{js,jsx}',
     '<rootDir>/src/**/*.{spec,test}.{js,jsx}',
   ],
 
-  // Coverage configuration
+  //  for which files coverage information will be made
   collectCoverageFrom: [
     'src/**/*.{js,jsx}',
     '!src/main.jsx',
