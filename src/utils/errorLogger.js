@@ -1,15 +1,14 @@
 function logError(error, type) {
-  const errorDetails = {
-    time: new Date().toLocaleString(),
-    message: error.message,
-    type: type || 'GENERAL',
-  };
+  const message = error instanceof Error ? error.message : error;
 
-  console.error('Error:', errorDetails);
+  const logMessage = `Error: ${message} | Time: ${new Date().toLocaleTimeString()} | Type: ${type || 'GENERAL'}`;
+
+  console.error(logMessage);
 }
 
 function logApiError(error, endpoint) {
-  console.error('API Error at ' + endpoint + ' ', error.message);
+  const message = error?.message || String(error);
+  console.error('API Error at ' + endpoint + ' ', message);
 }
 
 export { logError, logApiError };

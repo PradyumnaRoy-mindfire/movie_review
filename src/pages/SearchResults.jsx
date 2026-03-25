@@ -1,7 +1,7 @@
 import { useSearchParams } from 'react-router-dom';
 import MovieCard from '../components/MovieCard';
 import LoadingAndErrorHandler from '../components/errorHandling/LoadingAndErrorHandler';
-import { useSearchMovie } from '../utils/MoviesData';
+import { useSearchMovie } from '../hooks/useMovies';
 
 const SearchResults = () => {
   const [searchParams] = useSearchParams();
@@ -22,7 +22,7 @@ const SearchResults = () => {
   return (
     <section
       aria-label="Search results"
-      className="bg-linear-to-br from-blue-150 via-indigo-50 to-purple-50 px-8 pt-8 min-h-screen"
+      className="bg-linear-to-br from-blue-150 via-indigo-50 to-purple-50 px-8 py-8 min-h-screen"
     >
       <h1 className="text-2xl font-bold text-gray-700 mb-6">
         Search Result for "{query}"

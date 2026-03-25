@@ -1,7 +1,7 @@
 import { useSearchParams } from 'react-router-dom';
 import MovieCard from '../components/MovieCard';
 import LoadingAndErrorHandler from '../components/errorHandling/LoadingAndErrorHandler';
-import { useMoviesData } from '../utils/MoviesData';
+import { useMoviesData } from '../hooks/useMovies';
 
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
